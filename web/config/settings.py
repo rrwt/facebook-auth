@@ -20,7 +20,11 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = DEFAULT_APPS
+USER_DEFINED_APPS = [
+    'home'
+]
+
+INSTALLED_APPS = DEFAULT_APPS + USER_DEFINED_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,3 +90,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+TEMPLATE_ROOTS = [BASE_DIR]
