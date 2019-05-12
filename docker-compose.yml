@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  postgres:
+    restart: always
+    image: postgres:11.2
+    environment:
+      POSTGRES_PASSWORD: postgres
+  web:
+    restart: always
+    build: .
+    command: >
+      sh -c "
+        pip install -r requirements.txt &&
+        python web/manage.py migrate &&
+        python web/manage.py collectstatic --no-input &&
+        python web/manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - .:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SECRET_KEY: "asdfghjhgfdfghjhgfdfghytfcvgtrgy6545678uhgf456yhvcd345t"
+      DEBUG: 1
+      DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres"
