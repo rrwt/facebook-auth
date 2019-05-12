@@ -106,3 +106,4 @@ venv.bak/
 # user defined
 .idea/
 db.sqlite3
+web/static/

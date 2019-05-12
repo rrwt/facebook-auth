@@ -18,13 +18,21 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # required by django-allauth
+]
+
+THIRD_PARTY_APPS = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 USER_DEFINED_APPS = [
     'home'
 ]
 
-INSTALLED_APPS = DEFAULT_APPS + USER_DEFINED_APPS
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + USER_DEFINED_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,6 +57,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',  # django allauth
             ],
         },
     },
@@ -78,6 +87,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # admin
+    'allauth.account.auth_backends.AuthenticationBackend',  # allauth
+)
 
 LANGUAGE_CODE = 'en-us'
 
@@ -90,5 +103,9 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 TEMPLATE_ROOTS = [BASE_DIR]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'

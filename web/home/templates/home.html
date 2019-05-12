@@ -1,10 +1,32 @@
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Facebook Login App</title>
+  <link href="/static/home.css" rel="stylesheet">
 </head>
 <body>
+  <div class="container">
+    {% if request.user.is_authenticated %}
+      <div class="profile">
+        <img class="profile-picture" src="{{ image }}" alt="profile picture"/>
 
+        {% if request.user.first_name or request.user.last_name %}
+            {{ request.user.first_name }} {{ request.user.last_name }}
+        {% else %}
+            {{ request.user.username }}
+        {% endif %}
+      </div>
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <button class="button" type="submit">Logout</button>
+      </form>
+    {% else %}
+      <input class="button" type='button' value="Login via Facebook"
+             onclick="window.location.href='{% provider_login_url 'facebook' method='oauth2' %}'" />
+    {% endif %}
+  </div>
 </body>
 </html>

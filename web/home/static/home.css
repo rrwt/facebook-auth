@@ -1,0 +1,35 @@
+body {
+    background-color: #eeeeee;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 200px;
+    margin: 30vh auto;
+    padding: 20px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: auto auto 10px auto;
+}
+
+.button {
+    background-color: #3875d7;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
